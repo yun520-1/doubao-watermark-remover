@@ -1,0 +1,23 @@
+{
+  "name": "doubao-watermark-remover",
+  "version": "2.0.0",
+  "description": "智能豆包 AI 视频水印去除工具 - 自动识别并去除豆包 AI 生成水印",
+  "main": "final_perfect.py",
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "watermark",
+    "video",
+    "qq",
+    "doubao",
+    "ai",
+    "removal"
+  ],
+  "author": "mac 小虫子",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://clawhub.com/qq-watermark-remover"
+  }
+}

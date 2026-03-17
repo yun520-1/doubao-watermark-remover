@@ -1,0 +1,22 @@
+================================================================
+📦 豆包 AI 视频水印去除 - 发布指令
+================================================================
+
+您已成功登录 ClawHub！
+
+请在终端运行以下命令发布项目：
+
+cd /Users/apple/.jvs/.openclaw/workspace/qq-watermark-remover
+
+clawhub publish ./ \
+  --slug qq-watermark-remover \
+  --name "QQ Video Watermark Remover" \
+  --version 1.0.0 \
+  --changelog "初始版本 - 智能 QQ 视频水印去除工具" \
+  --tags "latest,watermark,video,qq,doubao,ai"
+
+================================================================
+发布成功后，用户可以通过以下命令安装：
+
+clawhub install qq-watermark-remover
+================================================================

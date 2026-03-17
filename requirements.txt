@@ -1,0 +1,5 @@
+opencv-python-headless>=4.8.0
+numpy>=1.21.0
+tqdm>=4.65.0
+scikit-image>=0.21.0
+pillow>=9.0.0
