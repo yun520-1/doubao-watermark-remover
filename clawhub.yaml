@@ -1,0 +1,53 @@
+# ClawHub 技能配置
+name: qq-watermark-remover
+version: 3.1.0
+description: 豆包 AI 视频水印去除工具 - 1.5x 超分辨率重建，内容自适应修复
+author: mac 小虫子 · 严谨专业版
+license: MIT-0
+
+# 技能入口文件
+main: final_perfect_v3_ultra.py
+
+# 依赖
+dependencies:
+  - opencv-python-headless>=4.8.0
+  - numpy>=1.21.0
+  - tqdm>=4.65.0
+  - scikit-image>=0.21.0
+  - pillow>=9.0.0
+
+# 系统要求
+requirements:
+  - Python 3.8+
+  - FFmpeg
+
+# 标签
+tags:
+  - video
+  - watermark
+  - ai
+  - doubao
+  - image-processing
+  - super-resolution
+
+# 分类
+category: media-processing
+
+# 使用示例
+examples:
+  - "python final_perfect_v3_ultra.py video.mp4"
+  - "python batch_qq_processor.py"
+
+# 变更日志
+changelog:
+  v3.1.0:
+    - "优化超分比例：2x → 1.5x"
+    - "处理速度提升 40%"
+    - "文件大小减小 30-40%"
+  v3.0.0:
+    - "新增超分辨率重建"
+    - "内容自适应修复"
+    - "批量处理模式"
+  v2.0.0:
+    - "多算法融合检测"
+    - "高级修复算法"

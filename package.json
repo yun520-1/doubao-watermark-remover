@@ -19,5 +19,9 @@
   "repository": {
     "type": "git",
     "url": "https://clawhub.com/qq-watermark-remover"
+  },
+  "dependencies": {
+    "form-data": "^4.0.5",
+    "node-fetch": "^3.3.2"
   }
 }
