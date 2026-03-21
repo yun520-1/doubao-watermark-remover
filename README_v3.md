@@ -1,34 +1,32 @@
-# Doubao Watermark Remover v4.0
+# 豆包水印去除 v3.0 - 集成增强版
 
-**豆包水印去除 - 增强版** | **FunASR 语音识别** | **网红字幕生成**
-
-[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)]()
+**版本:** 3.0.0  
+**发布日期:** 2026-03-21  
+**作者:** yun520-1
 
 ---
 
 ## ✨ 核心功能
 
-### 🎬 水印去除
+### 1. 🎬 水印去除
 - 自动检测"豆包 AI 生成"水印
-- 三段式跳跃水印追踪 (0-4 秒右下 + 3-7 秒左中 + 6-10 秒右上)
-- 骨架级精准修复 (1 像素宽)
-- 视觉无损质量 (CRF 18 + 10bit)
+- 三段式跳跃水印追踪
+- 骨架级精准修复
+- 视觉无损质量
 
-### 🎤 语音识别 (FunASR)
-- **阿里达摩院** 中文语音识别引擎
-- 准确率 **90%+** (标准普通话)
+### 2. 🎤 语音识别 (FunASR)
+- **阿里达摩院** 中文语音识别
+- 准确率 90%+
 - 自动标点符号
 - 时间戳精确到毫秒
 
-### 🎨 网红字幕
+### 3. 🎨 网红字幕
 - **思源黑体** Bold
-- 黄橙渐变色 (抖音风格)
+- 黄橙渐变色
 - 淡入淡出动画
 - 易于阅读
 
-### 🚀 一键处理
+### 4. 🎯 一键处理
 - 单个命令完成所有步骤
 - 自动流程
 - 无需手动干预
@@ -39,7 +37,7 @@
 
 ### 安装依赖
 ```bash
-pip3 install -r requirements.txt
+pip3 install funasr modelscope
 ```
 
 ### 基础用法
@@ -54,10 +52,13 @@ python3 doubao_watermark_asr.py input.mp4 -o ./output --no-subtitle
 python3 doubao_watermark_asr.py input.mp4 -o ./output --no-watermark
 ```
 
-### 批量处理
-```bash
-python3 batch_final.py /input/dir /output/dir
-```
+### 参数说明
+| 参数 | 说明 | 默认 |
+|------|------|------|
+| `input` | 输入视频文件 | 必需 |
+| `-o, --output` | 输出目录 | `./output` |
+| `--no-subtitle` | 不生成字幕 | False |
+| `--no-watermark` | 不去除水印 | False |
 
 ---
 
@@ -81,14 +82,32 @@ python3 batch_final.py /input/dir /output/dir
 
 ---
 
-## 🎨 字幕样式
+## 🎨 字幕样式配置
 
-| 样式 | 字体 | 颜色 | 适用场景 |
-|------|------|------|----------|
-| **抖音风** | 思源黑体 | 金黄→橙色 | 短视频 |
-| **快手风** | 思源黑体 | 粉色→蓝色 | 直播切片 |
-| **电影感** | 思源宋体 | 纯白 | Vlog |
-| **综艺风** | 站酷快乐体 | 彩色渐变 | 搞笑视频 |
+### 默认样式
+```ini
+字体：SourceHanSansCN-Bold (思源黑体)
+大小：52px
+颜色：金黄色 (#FFD700) → 橙色 (#FFA500)
+描边：5px 黑色
+阴影：4px
+位置：底部 85%
+动画：淡入淡出 (400ms)
+```
+
+### 自定义样式
+编辑 `doubao_watermark_asr.py` 中的 `generate_subtitle` 方法：
+```python
+# 修改颜色
+PrimaryColour=&H00FFD700  # 金色
+SecondaryColour=&H00FFA500  # 橙色
+
+# 修改大小
+Fontsize=56  # 更大字体
+
+# 修改位置
+MarginV=90  # 更靠下
+```
 
 ---
 
@@ -106,15 +125,23 @@ output/
 
 ---
 
-## ⚙️ 技术参数
+## 🔧 技术细节
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| **音频采样** | 16kHz | FunASR 最优 |
-| **字幕字体** | SourceHanSansCN | 思源黑体 |
-| **字幕大小** | 52px | 适合竖屏 |
-| **视频编码** | H.264 | 兼容性好 |
-| **CRF** | 18 | 视觉无损 |
+### 语音识别
+- **模型:** FunASR paraformer-zh
+- **VAD:** fsmn-vad (语音活动检测)
+- **标点:** ct-punc (自动标点)
+- **准确率:** 90%+ (标准普通话)
+
+### 水印去除
+- **检测:** 静态角落 + 跳跃式
+- **修复:** OpenCV TELEA / LaMa AI
+- **质量:** CRF 18 + 10bit
+
+### 字幕烧录
+- **引擎:** FFmpeg ass 滤镜
+- **格式:** ASS v4.00+
+- **效果:** 淡入淡出 + 缩放
 
 ---
 
@@ -122,6 +149,7 @@ output/
 
 ### Q: FunASR 下载模型失败
 ```bash
+# 手动下载模型
 pip3 install modelscope
 python3 -c "from funasr import AutoModel; AutoModel(model='paraformer-zh')"
 ```
@@ -133,7 +161,14 @@ python3 -c "from funasr import AutoModel; AutoModel(model='paraformer-zh')"
 
 ### Q: 字幕烧录失败
 ```bash
+# 检查 FFmpeg 是否支持 ass
 ffmpeg -filters | grep ass
+```
+
+### Q: 内存不足
+```bash
+# 减小 batch_size
+# 编辑代码：batch_size_s=150 (默认 300)
 ```
 
 ---
@@ -159,12 +194,12 @@ MIT License
 
 ## 🔗 相关链接
 
-- **ClawHub:** https://clawhub.ai/yun520-1/doubao-watermark-remover
-- **GitHub:** https://github.com/yun520-1/doubao-watermark-remover
 - **FunASR:** https://github.com/alibaba-damo-academy/FunASR
+- **ModelScope:** https://www.modelscope.cn
+- **ClawHub:** https://clawhub.ai/yun520-1/doubao-watermark-remover
 
 ---
 
-**版本:** 4.0.0  
+**版本:** 3.0.0  
 **更新日期:** 2026-03-21  
 **作者:** yun520-1
